@@ -10,16 +10,16 @@ void main()
 	//two Arrays that represent one generation
 	//automatonLine[] for checking and automatonNewLine[] for generating a new generation
 
-	int automatonLine[101] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	int automatonLine[101] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	int automatonNewLine[101] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	int ngen;
-	int rulea = 1;	//{0,0,0} (1)
-	int ruleb = 0;	//{0,0,1} (2)
-	int rulec = 0;	//{0,1,0} (4)
+	int rulea = 0;	//{0,0,0} (1)
+	int ruleb = 1;	//{0,0,1} (2)
+	int rulec = 1;	//{0,1,0} (4)
 	int ruled = 1;	//{0,1,1} (8)
-	int rulee = 0;	//{1,0,0} (16)
+	int rulee = 1;	//{1,0,0} (16)
 	int rulef = 0;	//{1,0,1} (32)
-	int ruleg = 1;	//{1,1,0} (64)
+	int ruleg = 0;	//{1,1,0} (64)
 	int ruleh = 0;	//{1,1,1} (128)
 
 	cout << "Wolfram Automaton!!" << endl << endl;
@@ -49,7 +49,7 @@ void main()
 	11111010 (rule 250)
 	*/
 
-	for (int i = 0; i < 101; i++) 
+	for (int i = 0; i < 101; i++)
 	{
 		if (automatonLine[i] == 1)
 		{
@@ -63,295 +63,154 @@ void main()
 	cout << endl;
 	//Check rules
 	/*
-		{0,0,0} = rulea
-		{0,0,1} = ruleb
-		{0,1,0} = rulec
-		{0,1,1} = ruled
-		{1,0,0} = rulee
-		{1,0,1} = rulef
-		{1,1,0} = ruleg
-		{1,1,1} = ruleh
+	{0,0,0} = rulea
+	{0,0,1} = ruleb
+	{0,1,0} = rulec
+	{0,1,1} = ruled
+	{1,0,0} = rulee
+	{1,0,1} = rulef
+	{1,1,0} = ruleg
+	{1,1,1} = ruleh
 
-		For checking:
-		checking automatonLine[i]
-		{i-1, i, i+1} = automatonNewLine[i]
-		bei i = 51 dann soll automatonLine[0] gecheckt werden
+	For checking:
+	checking automatonLine[i]
+	{i-1, i, i+1} = automatonNewLine[i]
+	bei i = 51 dann soll automatonLine[0] gecheckt werden
 	*/
-	for (int n = 0; n < ngen; n++) {
+	for (int n = 0; n < ngen; n++)
+	{
 		for (int i = 0; i < 101; i++)
 		{
 			if (i == 0) 
 			{
-				if (automatonLine[100] == 1)
+				if (automatonLine[100] == 0 && automatonLine[i] == 0 && automatonLine[i + 1] == 0)
 				{
-					if (automatonLine[i] == 1)
-					{
-						if (i == 100)
-						{
-							if (automatonLine[0] == 1)
-							{
-								//{1,1,1}
-								automatonNewLine[i] = ruleh;
-							}
-							else
-							{
-								//{1,1,0}
-								automatonNewLine[i] = ruleg;
-							}
-						}
-						else {
-							if (automatonLine[i + 1] == 1)
-							{
-								//{1,1,1}
-								automatonNewLine[i] = ruleh;
-							}
-							else
-							{
-								//{1,1,0}
-								automatonNewLine[i] = ruleg;
-							}
-						}
-					}
-					else
-					{
-						if (i == 100)
-						{
-							if (automatonLine[0] == 1)
-							{
-								//{1,0,1}
-								automatonNewLine[i] = rulef;
-							}
-							else
-							{
-								//{1,0,0}
-								automatonNewLine[i] = rulee;
-							}
-						}
-						else
-						{
-							if (automatonLine[i + 1] == 1)
-							{
-								//{1,0,1}
-								automatonNewLine[i] = rulef;
-							}
-							else
-							{
-								//{1,0,0}
-								automatonNewLine[i] = rulee;
-							}
-						}
-					}
+					automatonNewLine[i] = rulea;
 				}
-				else
+				else if (automatonLine[100] == 0 && automatonLine[i] == 0 && automatonLine[i + 1] == 1)
 				{
-					if (automatonLine[i] == 1)
-					{
-						if (i == 100)
-						{
-							if (automatonLine[0] == 1)
-							{
-								//{0,1,1}
-								automatonNewLine[i] = ruled;
-							}
-							else
-							{
-								//{0,1,0}
-								automatonNewLine[i] = rulec;
-							}
-						}
-						else
-						{
-							if (automatonLine[i + 1] == 1)
-							{
-								//{0,1,1}
-								automatonNewLine[i] = ruled;
-							}
-							else
-							{
-								//{0,1,0}
-								automatonNewLine[i] = rulec;
-							}
-						}
-					}
-					else
-					{
-						if (i == 100)
-						{
-							if (automatonLine[0] == 1)
-							{
-								//{0,0,1}
-								automatonNewLine[i] = ruleb;
-							}
-							else
-							{
-								//{0,0,0}
-								automatonNewLine[i] = rulea;
-							}
-						}
-						else
-						{
-							if (automatonLine[i + 1] == 1)
-							{
-								//{0,0,1}
-								automatonNewLine[i] = ruleb;
-							}
-							else
-							{
-								//{0,0,0}
-								automatonNewLine[i] = rulea;
-							}
-						}
-					}
+					automatonNewLine[i] = ruleb;
+				}
+				else if (automatonLine[100] == 0 && automatonLine[i] == 1 && automatonLine[i + 1] == 0)
+				{
+					automatonNewLine[i] = rulec;
+				}
+				else if (automatonLine[100] == 0 && automatonLine[i] == 1 && automatonLine[i + 1] == 1)
+				{
+					automatonNewLine[i] = ruled;
+				}
+				else if (automatonLine[100] == 1 && automatonLine[i] == 0 && automatonLine[i + 1] == 0)
+				{
+					automatonNewLine[i] = rulee;
+				}
+				else if (automatonLine[100] == 1 && automatonLine[i] == 0 && automatonLine[i + 1] == 1)
+				{
+					automatonNewLine[i] = rulef;
+				}
+				else if (automatonLine[100] == 1 && automatonLine[i] == 1 && automatonLine[i + 1] == 0)
+				{
+					automatonNewLine[i] = ruleg;
+				}
+				else if (automatonLine[100] == 1 && automatonLine[i] == 1 && automatonLine[i + 1] == 1)
+				{
+					automatonNewLine[i] = ruleh;
+				}
+			}
+			else if (i == 100) 
+			{
+				if (automatonLine[i - 1] == 0 && automatonLine[i] == 0 && automatonLine[0] == 0)
+				{
+					automatonNewLine[i] = rulea;
+				}
+				else if (automatonLine[i - 1] == 0 && automatonLine[i] == 0 && automatonLine[0] == 1)
+				{
+					automatonNewLine[i] = ruleb;
+				}
+				else if (automatonLine[i - 1] == 0 && automatonLine[i] == 1 && automatonLine[0] == 0)
+				{
+					automatonNewLine[i] = rulec;
+				}
+				else if (automatonLine[i - 1] == 0 && automatonLine[i] == 1 && automatonLine[0] == 1)
+				{
+					automatonNewLine[i] = ruled;
+				}
+				else if (automatonLine[i - 1] == 1 && automatonLine[i] == 0 && automatonLine[0] == 0)
+				{
+					automatonNewLine[i] = rulee;
+				}
+				else if (automatonLine[i - 1] == 1 && automatonLine[i] == 0 && automatonLine[0] == 1)
+				{
+					automatonNewLine[i] = rulef;
+				}
+				else if (automatonLine[i - 1] == 1 && automatonLine[i] == 1 && automatonLine[0] == 0)
+				{
+					automatonNewLine[i] = ruleg;
+				}
+				else if (automatonLine[i - 1] == 1 && automatonLine[i] == 1 && automatonLine[0] == 1)
+				{
+					automatonNewLine[i] = ruleh;
 				}
 			}
 			else {
-				if (automatonLine[i - 1] == 1)
+				if (automatonLine[i - 1] == 0 && automatonLine[i] == 0 && automatonLine[i + 1] == 0)
 				{
-					if (automatonLine[i] == 1)
-					{
-						if (i == 100)
-						{
-							if (automatonLine[0] == 1)
-							{
-								//{1,1,1}
-								automatonNewLine[i] = ruleh;
-							}
-							else
-							{
-								//{1,1,0}
-								automatonNewLine[i] = ruleg;
-							}
-						}
-						else {
-							if (automatonLine[i + 1] == 1)
-							{
-								//{1,1,1}
-								automatonNewLine[i] = ruleh;
-							}
-							else
-							{
-								//{1,1,0}
-								automatonNewLine[i] = ruleg;
-							}
-						}
-					}
-					else
-					{
-						if (i == 100)
-						{
-							if (automatonLine[0] == 1)
-							{
-								//{1,0,1}
-								automatonNewLine[i] = rulef;
-							}
-							else
-							{
-								//{1,0,0}
-								automatonNewLine[i] = rulee;
-							}
-						}
-						else
-						{
-							if (automatonLine[i + 1] == 1)
-							{
-								//{1,0,1}
-								automatonNewLine[i] = rulef;
-							}
-							else
-							{
-								//{1,0,0}
-								automatonNewLine[i] = rulee;
-							}
-						}
-					}
+					automatonNewLine[i] = rulea;
 				}
-				else
+				else if (automatonLine[i - 1] == 0 && automatonLine[i] == 0 && automatonLine[i + 1] == 1)
 				{
-					if (automatonLine[i] == 1)
-					{
-						if (i == 100)
-						{
-							if (automatonLine[0] == 1)
-							{
-								//{0,1,1}
-								automatonNewLine[i] = ruled;
-							}
-							else
-							{
-								//{0,1,0}
-								automatonNewLine[i] = rulec;
-							}
-						}
-						else
-						{
-							if (automatonLine[i + 1] == 1)
-							{
-								//{0,1,1}
-								automatonNewLine[i] = ruled;
-							}
-							else
-							{
-								//{0,1,0}
-								automatonNewLine[i] = rulec;
-							}
-						}
-					}
-					else
-					{
-						if (i == 100)
-						{
-							if (automatonLine[0] == 1)
-							{
-								//{0,0,1}
-								automatonNewLine[i] = ruleb;
-							}
-							else
-							{
-								//{0,0,0}
-								automatonNewLine[i] = rulea;
-							}
-						}
-						else
-						{
-							if (automatonLine[i + 1] == 1)
-							{
-								//{0,0,1}
-								automatonNewLine[i] = ruleb;
-							}
-							else
-							{
-								//{0,0,0}
-								automatonNewLine[i] = rulea;
-							}
-						}
-					}
+					automatonNewLine[i] = ruleb;
+				}
+				else if (automatonLine[i - 1] == 0 && automatonLine[i] == 1 && automatonLine[i + 1] == 0)
+				{
+					automatonNewLine[i] = rulec;
+				}
+				else if (automatonLine[i - 1] == 0 && automatonLine[i] == 1 && automatonLine[i + 1] == 1)
+				{
+					automatonNewLine[i] = ruled;
+				}
+				else if (automatonLine[i - 1] == 1 && automatonLine[i] == 0 && automatonLine[i + 1] == 0)
+				{
+					automatonNewLine[i] = rulee;
+				}
+				else if (automatonLine[i - 1] == 1 && automatonLine[i] == 0 && automatonLine[i + 1] == 1)
+				{
+					automatonNewLine[i] = rulef;
+				}
+				else if (automatonLine[i - 1] == 1 && automatonLine[i] == 1 && automatonLine[i + 1] == 0)
+				{
+					automatonNewLine[i] = ruleg;
+				}
+				else if (automatonLine[i - 1] == 1 && automatonLine[i] == 1 && automatonLine[i + 1] == 1)
+				{
+					automatonNewLine[i] = ruleh;
 				}
 			}
 		}
 
-		//NewLine to Line
-		//The New Generation becomes standard
-		//automatonLine[i] = automatonNewLine[i] in a for loop
-		for (int i = 0; i < 101; i++)
-		{
-			automatonLine[i] = automatonNewLine[i];
-		}
 
-		//cout Line
-		for (int i = 0; i < 101; i++)
-		{
-			if (automatonLine[i] == 1) 
-			{
-				cout << (char)219;
-			}
-			else 
-			{
-				cout << " ";
-			}
-		}
-		cout << endl;
+	//NewLine to Line
+	//The New Generation becomes standard
+	//automatonLine[i] = automatonNewLine[i] in a for loop
+	for (int i = 0; i < 101; i++)
+	{
+		automatonLine[i] = automatonNewLine[i];
 	}
-		
+
+	//cout Line
+	for (int i = 0; i < 101; i++)
+	{
+		if (automatonLine[i] == 1)
+		{
+			cout << (char)219;
+		}
+		else
+		{
+			cout << " ";
+		}
+	}
+	cout << endl;
+}
+
 	cout << endl << "BOOOM!" << endl << endl;
 
 
