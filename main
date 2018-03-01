@@ -13,19 +13,75 @@ void main()
 	int automatonLine[101] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	int automatonNewLine[101] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	int ngen;
+	int rnum;
+	int rbin;
+	int j = 0;
 	int rulea = 0;	//{0,0,0} (1)
-	int ruleb = 1;	//{0,0,1} (2)
-	int rulec = 1;	//{0,1,0} (4)
-	int ruled = 1;	//{0,1,1} (8)
-	int rulee = 1;	//{1,0,0} (16)
+	int ruleb = 0;	//{0,0,1} (2)
+	int rulec = 0;	//{0,1,0} (4)
+	int ruled = 0;	//{0,1,1} (8)
+	int rulee = 0;	//{1,0,0} (16)
 	int rulef = 0;	//{1,0,1} (32)
 	int ruleg = 0;	//{1,1,0} (64)
 	int ruleh = 0;	//{1,1,1} (128)
+	
+	cout << "-----------------------------" << endl;
+	cout << "-----Wolfram Automaton!!-----" << endl;
+	cout << "-----------------------------" << endl << endl;
 
-	cout << "Wolfram Automaton!!" << endl << endl;
+	cout << "Which rule? (from 0 to 255)" << endl;
+	cin >> rnum;
+	cout << endl;
+
+	while (rnum > 0)
+
+	{
+
+		rbin = rnum % 2;
+
+		if (j == 0) 
+		{
+			rulea = rbin;
+		}
+		else if (j == 1) 
+		{
+			ruleb = rbin;
+		}
+		else if (j == 2) 
+		{
+			rulec = rbin;
+		}
+		else if (j == 3)
+		{
+			ruled = rbin;
+		}
+		else if (j == 4)
+		{
+			rulee = rbin;
+		}
+		else if (j == 5)
+		{
+			rulef = rbin;
+		}
+		else if (j == 6)
+		{
+			ruleg = rbin;
+		}
+		else if (j == 7)
+		{
+			ruleh = rbin;
+		}
+
+		rnum /= 2;
+
+		j++;
+
+	}
+
 	cout << "Number of generations: ";
 	cin >> ngen;
 	cout << endl;
+
 
 	/*
 	most interesting rulesets:
